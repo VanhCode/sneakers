@@ -1,0 +1,42 @@
+#imagePreview {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+#imagePreview > img {
+    width: 114.9px;
+    height: 115px;
+    object-fit: cover;
+    border: 2px solid orange;
+    margin: 13px 27px 13px 0;
+}
+
+.box_img  {
+    position: relative;
+}
+
+.box_img > img {
+    width: 114.9px;
+    height: 115px;
+    object-fit: cover;
+    border: 2px solid orange;
+    margin: 13px 27px 13px 0;
+}
+
+.btnDelete_image {
+    position: absolute;
+    top: 2px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+.btnDelete_image:hover {
+    background-color: #fff;
+    color: #000;
+    transition: all 0.2s;
+    font-weight: 600;
+}
