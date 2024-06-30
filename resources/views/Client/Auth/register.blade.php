@@ -56,7 +56,7 @@
                                         <div class="registration-form login-form">
                                             <form action="#">
                                                 <div class="login-info mb-half">
-                                                    <p>Nếu bạn đã có tài khoản? <a href="{{ route('login') }}">Đăng nhập!</a></p>
+                                                    <p>Nếu bạn đã có tài khoản? <a href="{{ route('login.form') }}">Đăng nhập!</a></p>
                                                 </div>
 
                                                 <div class="form-group">
@@ -189,51 +189,44 @@
                     processData: false,
                     contentType: false,
                     success: function(response) {
-                        if(response.errorExitEmail) {
-                            Swal.fire({
-                                position: "center",
-                                icon: "error",
-                                title: `Email hoặc Số điện thoại đã tồn tại`,
-                                showConfirmButton: false,
-                                timer: 2500
-                            });
+                        if(response.registerStatus) {
+                            if(response.message) {
+                                firstName.value = "";
+                                lastName.value = "";
+                                email.value = "";
+                                phone.value = "";
+                                address.value = "";
+                                password.value = "";
+                                change_password.value = "";
+                                birth.value = "";
+
+                                gender.forEach((item) => {
+                                    if (item.checked) {
+                                        item.checked = false;
+                                    }
+                                });
+
+                                Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: `${response.message}`,
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                });
+                            }
                         }
 
-                        if(response.registerSuccess) {
-                            firstName.value = "";
-                            lastName.value = "";
-                            email.value = "";
-                            phone.value = "";
-                            address.value = "";
-                            password.value = "";
-                            change_password.value = "";
-                            birth.value = "";
-
-                            gender.forEach((item) => {
-                                if (item.checked) {
-                                    item.checked = false;
-                                }
-                            });
-
-                            Swal.fire({
-                                position: "center",
-                                icon: "success",
-                                title: `Đăng ký thành công` + '\n' + '<p class="p_register">Bạn có thể dùng tài khoản mới tạo để đăng nhập</p>',
-                                showConfirmButton: false,
-                                timer: 2500
-                            });
-                        }
-
-                        console.log(response)
+                        // console.log(response)
                     },
                     error: function(xhr) {
                         Swal.fire({
                             position: "center",
                             icon: "error",
-                            title: `Đã xảy ra lỗi`,
+                            title: `${xhr.responseJSON.message}`,
                             showConfirmButton: false,
                             timer: 2500
                         });
+                        // console.log(xhr.responseJSON.registerStatus)
                     }
                 });
 

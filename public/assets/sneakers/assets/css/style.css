@@ -91,12 +91,12 @@ section {
 /*************************
  Bootstrap Custom Container
 ************************/
-.container, 
-.container-fluid, 
-.container-lg, 
-.container-md, 
-.container-sm, 
-.container-xl, 
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
 .container-xxl {
   width: 100%;
   padding-right: 15px;
@@ -107,45 +107,45 @@ section {
 
 
 @media (min-width: 576px){
-  .container, 
+  .container,
   .container-sm {
     max-width: 540px;
 }
 }
 
 @media (min-width: 768px){
-  .container, 
-  .container-md, 
+  .container,
+  .container-md,
   .container-sm {
     max-width: 720px;
 }
 }
 
 @media (min-width: 992px){
-  .container, 
-  .container-lg, 
-  .container-md, 
+  .container,
+  .container-lg,
+  .container-md,
   .container-sm {
     max-width: 960px;
 }
 }
 
 @media (min-width: 1200px){
-  .container, 
-  .container-lg, 
-  .container-md, 
-  .container-sm, 
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
   .container-xl {
     max-width: 1140px;
   }
 }
 
 @media (min-width: 1400px){
-  .container, 
-  .container-lg, 
-  .container-md, 
-  .container-sm, 
-  .container-xl, 
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
   .container-xxl {
     max-width: 1140px;
   }
@@ -7400,4 +7400,14 @@ div:where(.swal2-container) div:where(.swal2-popup) {
     color: #545454;
     font-family: cursive !important;
     font-size: 1rem;
+}
+
+.product-image {
+    height: 300px !important;
+}
+
+.product-image img {
+    width: 100% !important;
+    height: 100%;
+    object-fit: cover;
 }

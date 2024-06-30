@@ -57,7 +57,7 @@
                                                 </div>
                                                 <div class="login-box mt-5 text-center">
                                                     <p><a href="#">Quên mật khẩu?</a></p>
-                                                    <button type="submit" class="default-btn tiny-btn mt-4">Đăng nhập</button>
+                                                    <button type="button" name="btnLogin" id="btnLogin" class="default-btn tiny-btn mt-4 btnLogin">Đăng nhập</button>
                                                 </div>
                                                 <div class="text-center mt-half pt-half top-bordered">
                                                     <p>Bạn chưa có tài khoản? <a href="{{ route('register.form') }}">Tạo tài khoản.</a></p>
@@ -75,4 +75,59 @@
         <!-- End of Login Wrapper -->
     </div>
     <!-- End of Main Content Wrapper -->
+@endsection
+
+@section('scriptAuth')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnLogin = document.querySelector('#btnLogin');
+
+            btnLogin.addEventListener('click', function() {
+                const email = document.querySelector('#email');
+                const password = document.querySelector('#c-password');
+
+                const formData = new FormData();
+                formData.append('_token', '{{ csrf_token() }}');
+                formData.append('email', email.value);
+                formData.append('password', password.value);
+
+                $.ajax({
+                    url: "{{ route('login.submit') }}",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.loginStatus) {
+                            if (response.role === 'admin') {
+                                window.location.href = "{{ route('admin.dashboard') }}";
+                            } else {
+                                window.location.href = "{{ route('home') }}";
+                            }
+                        } else {
+                            Swal.fire({
+                                position: "center",
+                                icon: "error",
+                                title: `<p style="font-size: 21px;">Đã xảy ra lỗi</p>`,
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                        }
+
+                        // console.log(response)
+                    },
+                    error: function(xhr) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "error",
+                            title: `<p style="font-size: 21px;">${xhr.responseJSON.message}</p>`,
+                            showConfirmButton: false,
+                            timer: 2500
+                        });
+                        // console.log(xhr.responseJSON.loginSuccess)
+                    }
+                });
+            });
+        });
+    </script>
 @endsection
