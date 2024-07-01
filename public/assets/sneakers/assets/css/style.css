@@ -2008,7 +2008,7 @@ header .list-inline .dropdown-menu ul {
     padding: 10px;
     -webkit-box-shadow: none;
     box-shadow: none;
-    min-width: 120px;
+    min-width: 142px;
     list-style: none;
 }
 
@@ -2020,6 +2020,21 @@ header .list-inline .dropdown-menu ul li a {
     padding: 3px 10px;
     line-height: 22px;
     text-align: left;
+}
+
+header .list-inline .dropdown-menu ul li button {
+    display: block;
+    color: #000;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: none;
+    padding: 3px 10px;
+    line-height: 22px;
+    text-align: left;
+    text-transform: none;
+}
+header .list-inline .dropdown-menu ul li button:hover {
+    color: #cc2121;
 }
 
 header .list-inline .dropdown-menu ul li:last-child a {

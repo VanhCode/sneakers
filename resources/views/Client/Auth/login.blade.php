@@ -41,11 +41,11 @@
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
                                         <div class="login-form">
-                                            <form action="#">
+                                            <form>
                                                 <div class="form-group mb-4">
                                                     <label for="email" class="col-12 col-sm-12 col-md-12 col-form-label">Email hoặc Số điện thoại</label>
                                                     <div class="col-12 col-sm-12 col-md-12">
-                                                        <input type="text" class="form-control" id="email" placeholder="Email" required>
+                                                        <input type="text" class="form-control" id="emailOrPhone" placeholder="Email/Số điện thoại" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-4">
@@ -83,12 +83,12 @@
             const btnLogin = document.querySelector('#btnLogin');
 
             btnLogin.addEventListener('click', function() {
-                const email = document.querySelector('#email');
+                const emailOrPhone = document.querySelector('#emailOrPhone');
                 const password = document.querySelector('#c-password');
 
                 const formData = new FormData();
                 formData.append('_token', '{{ csrf_token() }}');
-                formData.append('email', email.value);
+                formData.append('emailOrPhone', emailOrPhone.value);
                 formData.append('password', password.value);
 
                 $.ajax({
@@ -99,9 +99,7 @@
                     contentType: false,
                     success: function(response) {
                         if (response.loginStatus) {
-                            if (response.role === 'admin') {
-                                window.location.href = "{{ route('admin.dashboard') }}";
-                            } else {
+                            if (response.role === 'member') {
                                 window.location.href = "{{ route('home') }}";
                             }
                         } else {

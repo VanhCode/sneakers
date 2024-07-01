@@ -61,7 +61,7 @@
                         </ul>
                     </div>
                 </li> <!-- end Dashboard Menu -->
-                
+
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarCategories" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCategories">
                         <i class="ri-stack-line"></i> <span data-key="t-apps">Quản lí danh mục</span>
@@ -347,6 +347,15 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="nav-link menu-link">
+                            <i class="ri-logout-circle-r-line logout" style="padding-right: 6px;"></i><span data-key="t-landing">Đăng xuất</span>
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>

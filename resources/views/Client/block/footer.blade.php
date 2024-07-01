@@ -30,9 +30,6 @@
                             <div class="widget-content">
                                 <div class="widgetized-menu">
                                     <ul class="list-unstyled">
-                                        @php
-                                            $categories = App\Models\Categories::limit(5)->get();
-                                        @endphp
                                         @foreach ($categories as $cate)
                                             <li><a href="#">{{ $cate->category_name }}</a></li>
                                         @endforeach

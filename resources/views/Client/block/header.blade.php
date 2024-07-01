@@ -130,9 +130,24 @@
                                     <button class="btn-link dropdown-toggle"><i class="pe-7s-config"></i></button>
                                     <div class="dropdown-menu">
                                         <ul>
-                                            <li><a href="{{ route('register.form') }}">Đăng ký</a></li>
-                                            <li><a href="{{ route('login.form') }}">Đăng nhập</a></li>
+                                            @guest
+                                                <li><a href="{{ route('register.form') }}">Đăng ký</a></li>
+                                                <li><a href="{{ route('login.form') }}">Đăng nhập</a></li>
+                                            @else
+                                                @if(Auth::user()->isAdmin())
+                                                    <li><a href="#">Vào trang quản trị</a></li>
+                                                @endif
+                                                <li><a href="#">Tài khoản của tôi</a></li>
+                                                <li><a href="#">Đơn hàng của tôi</a></li>
+                                                <li>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit">Đăng xuất</button>
+                                                    </form>
+                                                </li>
+                                            @endguest
                                         </ul>
+
                                     </div>
                                 </div>
                             </li>
@@ -198,13 +213,12 @@
                     </li>
                     <li><a href="/collections/sneakers"><span>Danh mục</span></a>
                         <ul>
-                            <li><a href="blog.html">Blog Full Width</a></li>
-                            <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                            <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                            <li><a href="blog-details.html">Blog Details</a></li>
+                            @foreach($categories as $cate)
+                                <li><a href="">{{ $cate->category_name }}</a></li>
+                            @endforeach
                         </ul>
                     </li>
-                    <li><a href="faqs.html"><span>Tin tức</span></a>
+                    <li><a href="/blog"><span>Tin tức</span></a>
                         <ul>
                             <li><a href="faqs.html">FAQs Page</a></li>
                             <li><a href="404.html">404 Page</a></li>

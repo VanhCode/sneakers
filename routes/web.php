@@ -16,13 +16,15 @@ Route::get('/sneaker/{sneakerSlug}', [ClientSneakerController::class, 'detailSne
 Route::post('/sneaker/cartAdd/{sneakerSlug}', [CartController::class, 'cartAdd'])->name('cartAdd');
 
 
-Route::prefix('auth')->group(function () {
+Route::prefix('auth')->middleware('checkLogin')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
     Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register.form');
     Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
-    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
+
+Route::get('/login', [LoginController::class, 'showLoginFormAdmin'])->name('login.admin');
 
 Route::prefix('admin')->middleware('isAdmin')->group(function () {
 
