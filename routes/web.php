@@ -10,27 +10,49 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\SneakerController as ClientSneakerController;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/collections/sneakers', [ClientSneakerController::class, 'sneakerList'])->name('sneakerList');
-Route::get('/sneaker/{sneakerSlug}', [ClientSneakerController::class, 'detailSneaker'])->name('sneakerDetail');
-Route::post('/sneaker/cartAdd/{sneakerSlug}', [CartController::class, 'cartAdd'])->name('cartAdd');
+Route::get('/',                                 [HomeController::class, 'index'])->name('home');
+Route::get('/collections/sneakers',             [ClientSneakerController::class, 'sneakerList'])->name('sneakerList');
+Route::get('/sneaker/{sneakerSlug}',            [ClientSneakerController::class, 'detailSneaker'])->name('sneakerDetail');
+Route::post('/sneaker/cartAdd/{sneakerSlug}',   [CartController::class, 'cartAdd'])->name('cartAdd');
 
 
-Route::prefix('auth')->middleware('checkLogin')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login.form');
-    Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-    Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register.form');
-    Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::prefix('auth')->group(function () {
+    Route::get('/login',                        [LoginController::class, 'showLoginForm'])
+        ->middleware('isCheckLogin')
+        ->name('login.form');
+
+    Route::post('/login',                       [LoginController::class, 'login'])
+        ->middleware('isCheckLogin')
+        ->name('login.submit');
+
+    Route::get('/register',                     [RegisterController::class, 'showRegisterForm'])
+        ->middleware('isCheckLogin')
+        ->name('register.form');
+
+    Route::post('/register',                    [RegisterController::class, 'register'])
+        ->middleware('isCheckLogin')
+        ->name('register.submit');
+
+    Route::post('/logout',                      [LoginController::class, 'logout'])
+        ->name('logout');
 });
 
-Route::get('/login', [LoginController::class, 'showLoginFormAdmin'])->name('login.admin');
 
-Route::prefix('admin')->middleware('isAdmin')->group(function () {
+Route::prefix('admin')->group(function () {
 
-    Route::get('/', [AdminHomeController::class, 'index'])->name('admin.dashboard');
+    Route::get('/login',                        [LoginController::class, 'showLoginFormAdmin'])
+        ->name('admin.login.form');
+    Route::post('/login',                       [LoginController::class, 'loginAdmin'])
+        ->name('admin.login.submit');
 
-    Route::controller(CategoriesController::class)
+
+    Route::get('/',                             [AdminHomeController::class, 'index'])
+        ->middleware('isAdmin')
+        ->name('admin.dashboard');
+
+
+    Route::controller(                      CategoriesController::class)
+        ->middleware('isAdmin')
         ->name('categories.')
         ->prefix('categories')
         ->group(function () {
@@ -44,7 +66,9 @@ Route::prefix('admin')->middleware('isAdmin')->group(function () {
             Route::post('delete/{categoryId}', 'deleteCategories')->name('deleteCategories');
         });
 
-    Route::controller(SneakerController::class)
+
+    Route::controller(                      SneakerController::class)
+        ->middleware('isAdmin')
         ->name('sneaker.')
         ->prefix('sneaker')
         ->group(function () {

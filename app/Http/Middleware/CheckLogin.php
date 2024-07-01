@@ -18,8 +18,8 @@ class CheckLogin
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Auth::guard($guard)->check()) {
-            $request->session()->put('previousUrl', $request->path());
+        if (Auth::guard($guard)->check()) {
+            return redirect()->to('/');
         }
 
         return $next($request);

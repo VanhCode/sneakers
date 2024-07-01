@@ -99,9 +99,7 @@
                     contentType: false,
                     success: function(response) {
                         if (response.loginStatus) {
-                            if (response.role === 'member') {
-                                window.location.href = "{{ route('home') }}";
-                            }
+                            window.location.href = "{{ route('home') }}";
                         } else {
                             Swal.fire({
                                 position: "center",

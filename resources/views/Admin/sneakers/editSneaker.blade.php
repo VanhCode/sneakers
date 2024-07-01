@@ -86,7 +86,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                            
+
                             <div class="col-12">
                                 <div class="text-start">
                                     <a href="/admin/sneaker/" class="btn btn-outline-danger">Quay lại</a>
@@ -194,6 +194,7 @@
                 } else {
                     console.error('CKEditor instance not found for #productDescribe');
                 }
+
                 formData.append('_token', '{{ csrf_token() }}');
 
                 productSizes.forEach(function(size, index) {

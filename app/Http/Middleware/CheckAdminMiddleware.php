@@ -20,6 +20,6 @@ class CheckAdminMiddleware
             return $next($request);
         }
 
-        return redirect()->route('login.admin');
+        return redirect()->route('admin.login.form');
     }
 }
